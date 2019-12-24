@@ -43,12 +43,10 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
         currentNode->g_value=currentNode->distance(*start_node);
         currentNode->parent=current_node;
 
-
         // - For each node in current_node.neighbors, add the neighbor to open_list and set the node's visited attribute to true.
         open_list.push_back(currentNode);
         currentNode->visited=true;
     }
-
 
 }
 
@@ -61,13 +59,17 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
 // - Return the pointer.
 
 RouteModel::Node *RoutePlanner::NextNode() {
-
+    std::sort(open_list.begin(), open_list.end(), [](RouteModel::Node *node1, RouteModel::Node *node2){ return node1->g_value+node1->h_value > node2->g_value+node2->h_value;} );
+    RouteModel::Node *selectedNode=open_list.back();
+    open_list.pop_back();
+    return selectedNode;
 }
+
 
 
 // TODO 6: Complete the ConstructFinalPath method to return the final path found from your A* search.
 // Tips:
-// - This method should take the current (final) node as an argument and iteratively follow the 
+// - This method should take the current (final) node as an argument and iteratively follow the
 //   chain of parents of nodes until the starting node is found.
 // - For each node in the chain, add the distance from the node to its parent to the distance variable.
 // - The returned vector should be in the correct order: the start node should be the first element
