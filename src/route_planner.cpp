@@ -81,8 +81,25 @@ std::vector<RouteModel::Node> RoutePlanner::ConstructFinalPath(RouteModel::Node 
     std::vector<RouteModel::Node> path_found;
 
     // TODO: Implement your solution here.
+    path_found.push_back(*current_node);
+    bool startNodeFound=false;
+    while(!startNodeFound)
+    {
+        RouteModel::Node *parentNode=current_node->parent;
+        path_found.push_back(*parentNode);
+        distance=distance+current_node->distance(*parentNode);
+        current_node=parentNode;
+        //check if start node is found0
+        if(parentNode==start_node)
+        {
+            startNodeFound=true;
+        }
+    }
+
 
     distance *= m_Model.MetricScale(); // Multiply the distance by the scale of the map to get meters.
+    //reverse path_found as it seems to be onverse order of what is wanted!?
+    std::reverse(path_found.begin(), path_found.end());
     return path_found;
 
 }
