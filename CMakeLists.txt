@@ -13,6 +13,7 @@ set(LIBRARY_OUTPUT_PATH "${CMAKE_SOURCE_DIR}/lib")
 
 # Locate project prerequisites
 find_package(io2d REQUIRED)
+#PATHS /home/arjun/sources/P0267_RefImpl/Debug/P0267_RefImpl/P0267_RefImpl/CMakeFiles/Export/lib/cmake/io2d/22
 find_package(Cairo)
 find_package(GraphicsMagick)
 
@@ -23,6 +24,9 @@ set(IO2D_WITHOUT_TESTS 1)
 # Add the pugixml and GoogleTest library subdirectories
 add_subdirectory(thirdparty/pugixml)
 add_subdirectory(thirdparty/googletest)
+
+#add include directores
+#include_directories(${IO2D_INCLUDE_DIR})
 
 # Add project executable
 add_executable(OSM_A_star_search src/main.cpp src/model.cpp src/render.cpp src/route_model.cpp src/route_planner.cpp)
