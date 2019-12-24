@@ -38,8 +38,15 @@ void RoutePlanner::AddNeighbors(RouteModel::Node *current_node) {
     // - For each node in current_node.neighbors, set the parent, the h_value, the g_value.
     for(auto currentNode : current_node->neighbors)
     {
+        // - Use CalculateHValue below to implement the h-Value calculation
         currentNode->h_value=CalculateHValue(currentNode);
+        currentNode->g_value=currentNode->distance(*start_node);
+        currentNode->parent=current_node;
 
+
+        // - For each node in current_node.neighbors, add the neighbor to open_list and set the node's visited attribute to true.
+        open_list.push_back(currentNode);
+        currentNode->visited=true;
     }
 
 
